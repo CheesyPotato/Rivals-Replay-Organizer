@@ -8,3 +8,5 @@ Organizes Rivals of Aether replays.
 Automatically create zips of match sets to avoid the hassle of going through your replay folder and finding the right matches to send to a stream!
 
 Tags player names, dates, and game numbers.
+
+PM me any bugs/suggestions on Github or at Discord: CheesyPotato#5378
