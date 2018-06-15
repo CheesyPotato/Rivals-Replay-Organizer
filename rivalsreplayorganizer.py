@@ -147,7 +147,9 @@ def start():
             root.after(2000, errorplayer)
             return
         try:
-            os.makedirs(directory + '\\' + newfilelist[0][0][:10] + ' ' + player1 + ' v.s. ' + player2)
+            directoryplayer1 = player1.replace('.', '')
+            directoryplayer2 = player2.replace('.', '')
+            os.makedirs(directory + '\\' + newfilelist[0][0][:10] + ' ' + directoryplayer1 + ' v.s. ' + directoryplayer2)
         except FileExistsError:
             #wait if this just passes it works? idk
             pass
@@ -156,7 +158,7 @@ def start():
             # errorfilelabel.place(x=115,y=250)
             # root.after(2000, errorfile)
         for replay, gamecount in newfilelist:
-            shutil.copy2(os.getenv('LOCALAPPDATA') + "\RivalsofAether\Replays\\" + replay, directory + '\\' + newfilelist[0][0][:10] + ' ' + player1 + ' v.s. ' + player2 + '\\' + player1 + " v.s. " + player2 + ' Game ' + str(gamecount) + '.roa')
+            shutil.copy2(os.getenv('LOCALAPPDATA') + "\RivalsofAether\Replays\\" + replay, directory + '\\' + newfilelist[0][0][:10] + ' ' + directoryplayer1 + ' v.s. ' + directoryplayer2 + '\\' + player1 + " v.s. " + player2 + ' Game ' + str(gamecount) + '.roa')
         shutil.make_archive(directory + '\\' + newfilelist[0][0][:10] + ' ' + player1 + ' v.s. ' + player2, 'zip', directory + '\\' + newfilelist[0][0][:10] + ' ' + player1 + ' v.s. ' + player2)
         global successlabel
         successlabel = Label(root, text = 'Success!', fg = 'green')
