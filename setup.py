@@ -18,5 +18,5 @@ setup(
     'include_files': include_files,
     'include_msvcr': True,
 }},
-executables = [Executable("rivalsreplayorganizer.py",base="Win32GUI"), Executable('update.py', base = None)]
+executables = [Executable("rivalsreplayorganizer.py",base="Win32GUI", icon = 'kragg icon.ico'), Executable('update.py', icon = 'kragg icon.ico')]
 )

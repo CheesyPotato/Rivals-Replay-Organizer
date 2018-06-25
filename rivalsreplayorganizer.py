@@ -22,7 +22,6 @@ sorry its a mess i just want to get it finished, maybe ill finish later
 
 
 '''
-os.chdir("C:\Other Programs\Python 3.6.2\Scripts\Rivals Replay Organizer (Github)\Rivals-Replay-Organizer")
 def savereplay(match):
     player1butdifferent = match[0]
     player2butdifferent = match[1]
