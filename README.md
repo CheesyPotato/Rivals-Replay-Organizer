@@ -13,10 +13,12 @@ PM me any bugs/suggestions on Github or at Discord: CheesyPotato#5378
 
 # Building from source (for cool kids only)
 
+
+
+Requires `requests`, `tqdm`, and `cx_freeze`
+
+`pip install requests tqdm cx_freeze`
+
 `python setup.py build`
-
-Also requires `requests` and `tqdm`
-
-`pip install requests tqdm`
 
 Also add tcl86t.dll and tk86t.dll from yourpythoninstall/DLLS or from the release because i dont think im supposed to have it in the source? idk
