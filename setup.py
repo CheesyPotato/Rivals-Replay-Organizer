@@ -4,7 +4,7 @@ import sys
 os.environ['TCL_LIBRARY'] = os.path.split(sys.executable)[0] + r"\tcl\tcl8.6"
 os.environ['TK_LIBRARY'] = os.path.split(sys.executable)[0] + r"\tcl\tk8.6"
 
-__version__ = '1.0.0'
+__version__ = '1.0.2'
 
 include_files = ['config','kragg icon.ico', os.path.split(sys.executable)[0] + r'\DLLs\tcl86t.dll', os.path.split(sys.executable)[0] + r'\DLLs\tk86t.dll']
 packages = ["os", 'shutil', 'tkinter', 'tqdm', 'requests', 'functools', 'bs4', 'zipfile', 'idna']

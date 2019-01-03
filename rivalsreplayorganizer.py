@@ -8,7 +8,7 @@ import requests
 from functools import partial
 from bs4 import BeautifulSoup
 import zipfile
-__version__ = '1.0.0'
+__version__ = '1.0.2'
 
 
 '''
@@ -68,7 +68,7 @@ def main():
     masterlist = []
     for replay in filelist:
         if replay[-4:] == '.roa':
-            f = open(os.getenv('LOCALAPPDATA') + "\RivalsofAether\Replays\\" + replay, 'r')#.readlines()
+            f = open(os.getenv('LOCALAPPDATA') + "\RivalsofAether\Replays\\" + replay, 'r', encoding='utf-8')#.readlines()
 
             f.seek(0)
             fileread = f.read()

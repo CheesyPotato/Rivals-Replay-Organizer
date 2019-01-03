@@ -4,7 +4,7 @@ import os
 from tqdm import tqdm
 import zipfile
 
-__version__ = '1.0.0'
+__version__ = '1.0.2'
 #change every release
 def update():
 
