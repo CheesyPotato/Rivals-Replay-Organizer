@@ -3,11 +3,7 @@ import os
 from tkinter.font import Font
 import shutil
 from tkinter.filedialog import askdirectory
-from tqdm import tqdm
-import requests
 from functools import partial
-from bs4 import BeautifulSoup
-import zipfile
 __version__ = '1.0.2'
 
 
