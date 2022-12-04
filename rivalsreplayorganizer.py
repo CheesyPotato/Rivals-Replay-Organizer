@@ -4,6 +4,7 @@ from tkinter.font import Font
 import shutil
 from tkinter.filedialog import askdirectory
 from functools import partial
+import sys
 __version__ = '1.0.2'
 
 
@@ -18,6 +19,17 @@ sorry its a mess i just want to get it finished, maybe ill finish later
 
 
 '''
+
+
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 
 
 def savereplay(match):
@@ -57,7 +69,7 @@ def main():
     frame.place(x=10, y=100)
     canvas = Canvas(frame, bg='#FFFFFF', width=440, height=160)
     global directory
-    f = open('config', 'r')
+    f = open(resource_path('config'), 'r')
     if f.read() == 'DEFAULT':
         f.seek(0)
         directory = os.path.expanduser("~\Desktop\Rivals Replays")
@@ -280,7 +292,7 @@ def start():
         errormatchlabel.place(x=115,y=250)
         root.after(2000, errormatch)'''
     # else:
-    f = open('config', 'r')
+    f = open(resource_path('config'), 'r')
     if f.read() == 'DEFAULT':
         f.seek(0)
         directory = os.path.expanduser("~\Desktop\Rivals Replays")
@@ -392,7 +404,7 @@ def save():
         errorsavedlabel.place(x=205, y=35)
         root.after(2000, errorsaved)
         return
-    f = open('config', 'w')
+    f = open(resource_path('config'), 'w')
     f.write(changedestinationentry.get())
     f.seek(0)
     f.close()
@@ -475,7 +487,7 @@ startbutton.place(x=100, y=150)'''
 
 Label(root, text='By CheesyPotato (PM at CheesyPotato#5378 for bugs/suggestions)').place(x=85, y=280)
 
-f = open('config', 'r')
+f = open(resource_path('config'), 'r')
 if f.read() == 'DEFAULT':
     f.seek(0)
     if not os.path.exists(os.path.expanduser(r"~\Desktop\Rivals Replays")):
@@ -488,7 +500,7 @@ else:
 f.close()
 root.geometry("450x300")
 root.title("Rivals Replay Organizer GUI")
-root.iconbitmap("kragg icon.ico")
+root.iconbitmap(resource_path("kragg icon.ico"))
 
 
 main()
