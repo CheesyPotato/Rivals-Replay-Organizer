@@ -22,6 +22,8 @@ sorry its a mess i just want to get it finished, maybe ill finish later
 
 
 '''
+
+
 def savereplay(match):
     player1butdifferent = match[0]
     player2butdifferent = match[1]
@@ -37,22 +39,27 @@ def savereplay(match):
         newfilelist.append([replaybutdifferent, count])
     try:
         date = newfilelist[0][0][:10]
-        date = date[6:9] + date[9:] + '-' + date[0:4]
-        os.makedirs(directory + '\\' + date + ' ' + directoryplayer1 + ' v.s. ' + directoryplayer2)
+        date = date[5:9] + date[9:] + '-' + date[0:4]
+        os.makedirs(directory + '\\' + date + ' ' +
+                    directoryplayer1 + ' v.s. ' + directoryplayer2)
     except FileExistsError:
-        #wait if this just passes it works? idk
+        # wait if this just passes it works? idk
         pass
 
-
     for replay, gamecount in newfilelist:
-        shutil.copy2(os.getenv('LOCALAPPDATA') + "\RivalsofAether\Replays\\" + replay, directory + '\\' + date + ' ' + directoryplayer1 + ' v.s. ' + directoryplayer2 + '\\' + player1butdifferent + " v.s. " + player2butdifferent + ' Game ' + str(gamecount) + '.roa')
-        shutil.make_archive(directory + '\\' + date + ' ' + directoryplayer1 + ' v.s. ' + directoryplayer2, 'zip', directory + '\\' + date + ' ' + directoryplayer1 + ' v.s. ' + directoryplayer2)
-    shutil.move(directory + '\\' + date + ' ' + directoryplayer1 + ' v.s. ' + directoryplayer2 + '.zip', directory + '\\' + date + ' ' + directoryplayer1 + ' v.s. ' + directoryplayer2 + '\\' + date + ' ' + directoryplayer1 + ' v.s. ' + directoryplayer2 + '.zip')
+        shutil.copy2(os.getenv('LOCALAPPDATA') + "\RivalsofAether\Replays\\" + replay, directory + '\\' + date + ' ' + directoryplayer1 +
+                     ' v.s. ' + directoryplayer2 + '\\' + player1butdifferent + " v.s. " + player2butdifferent + ' Game ' + str(gamecount) + '.roa')
+        shutil.make_archive(directory + '\\' + date + ' ' + directoryplayer1 + ' v.s. ' + directoryplayer2,
+                            'zip', directory + '\\' + date + ' ' + directoryplayer1 + ' v.s. ' + directoryplayer2)
+    shutil.move(directory + '\\' + date + ' ' + directoryplayer1 + ' v.s. ' + directoryplayer2 + '.zip', directory + '\\' + date + ' ' +
+                directoryplayer1 + ' v.s. ' + directoryplayer2 + '\\' + date + ' ' + directoryplayer1 + ' v.s. ' + directoryplayer2 + '.zip')
+
+
 def main():
     global frame
-    frame=Frame(root,width=390,height=160)
+    frame = Frame(root, width=390, height=160)
     frame.place(x=10, y=100)
-    canvas=Canvas(frame,bg='#FFFFFF',width=440,height=160)
+    canvas = Canvas(frame, bg='#FFFFFF', width=440, height=160)
     global directory
     f = open('config', 'r')
     if f.read() == 'DEFAULT':
@@ -64,11 +71,12 @@ def main():
         f.seek(0)
     f.close()
     filelist = os.listdir(os.getenv('LOCALAPPDATA') + '\RivalsofAether\Replays')
-    playerlist = [[],[]]
+    playerlist = [[], []]
     masterlist = []
     for replay in filelist:
         if replay[-4:] == '.roa':
-            f = open(os.getenv('LOCALAPPDATA') + "\RivalsofAether\Replays\\" + replay, 'r', encoding='utf-8')#.readlines()
+            f = open(os.getenv('LOCALAPPDATA') + "\RivalsofAether\Replays\\" +
+                     replay, 'r', encoding='utf-8')  # .readlines()
 
             f.seek(0)
             fileread = f.read()
@@ -91,7 +99,8 @@ def main():
                             spaceflag = 0
                         if spaceflag == 5:
                             player1 = player1[:-5]
-                            remove_punctuation_map = dict((ord(char), None) for char in '\/*?:"<>|')
+                            remove_punctuation_map = dict(
+                                (ord(char), None) for char in '\/*?:"<>|')
                             realplayer1 = player1
                             player1 = player1.translate(remove_punctuation_map)
                             readflag = False
@@ -105,7 +114,8 @@ def main():
                             spaceflag = 0
                         if spaceflag == 5:
                             player2 = player2[:-5]
-                            remove_punctuation_map = dict((ord(char), None) for char in '\/*?:"<>|')
+                            remove_punctuation_map = dict(
+                                (ord(char), None) for char in '\/*?:"<>|')
                             realplayer2 = player2
                             player2 = player2.translate(remove_punctuation_map)
                             break
@@ -130,7 +140,7 @@ def main():
 
     masterlist2 = masterlist2[::-1]
 
-    couriernew = Font(font = 'TkDefaultFont')
+    couriernew = Font(font='TkDefaultFont')
     for match in masterlist2:
         player1length = couriernew.measure(match[0])
         player2length = couriernew.measure(match[1])
@@ -138,33 +148,40 @@ def main():
         textlength = max([player1length, player2length, datelength])
         if masterlist2.index(match) == 0:
             previouslength = 0
-        canvas.create_rectangle(10+previouslength, 10, 10+previouslength+textlength+5, 75)
-        canvas.create_text(12 + previouslength, 16, text=match[0], anchor = NW)
-        canvas.create_text((10 + previouslength + 10 + previouslength + textlength)/2, 28, text='v.s.', anchor = N)
-        canvas.create_text(12 + previouslength, 40, text=match[1], anchor = NW)
+        canvas.create_rectangle(10+previouslength, 10,
+                                10+previouslength+textlength+5, 75)
+        canvas.create_text(12 + previouslength, 16, text=match[0], anchor=NW)
+        canvas.create_text((10 + previouslength + 10 +
+                           previouslength + textlength)/2, 28, text='v.s.', anchor=N)
+        canvas.create_text(12 + previouslength, 40, text=match[1], anchor=NW)
         date = match[2][:10]
-        date = date[6:9] + date[9:] + '-' + date[0:4]
-        canvas.create_text(12 + previouslength, 52, text=date, anchor = NW)
+        date = date[5:9] + date[9:] + '-' + date[0:4]
+        canvas.create_text(12 + previouslength, 52, text=date, anchor=NW)
         tkinterisdumb = partial(savereplay, match)
-        button = Button(root, command = tkinterisdumb, text = 'Save Replay')
-        canvas.create_window(12 + previouslength, 80,window=button, anchor = NW, width = 10+previouslength+textlength+5 - 10 - previouslength - 2)
+        button = Button(root, command=tkinterisdumb, text='Save Replay')
+        canvas.create_window(12 + previouslength, 80, window=button, anchor=NW,
+                             width=10+previouslength+textlength+5 - 10 - previouslength - 2)
         previouslength = 10+previouslength+textlength
     global hbar
-    hbar=Scrollbar(frame,orient=HORIZONTAL)
-    hbar.pack(side=TOP,fill=X)
+    hbar = Scrollbar(frame, orient=HORIZONTAL)
+    hbar.pack(side=TOP, fill=X)
     hbar.config(command=canvas.xview)
 
-
-
     canvas.config(xscrollcommand=hbar.set)
-    canvas.pack(side=LEFT,expand=True,fill=BOTH)
+    canvas.pack(side=LEFT, expand=True, fill=BOTH)
     canvas.config(scrollregion=canvas.bbox(ALL))
+
+
 def refresh():
     frame.place_forget()
     main()
+
+
 def saveall():
     for i in masterlist2:
         savereplay(i)
+
+
 ''' doesnt work with win32gui cxfreeze :( use separate file
 def update():
 
@@ -199,6 +216,8 @@ def update():
     donelabel.place(x=200, y=65)
     root.after(5000, done)
     return'''
+
+
 def numbercheck(numberinput):
     if numberinput == '':
         return True
@@ -207,40 +226,64 @@ def numbercheck(numberinput):
         return True
     except ValueError:
         return False
+
+
 def browse():
-    choosedirectory = askdirectory(initialdir = os.path.expanduser(r"~\\Desktop"), )
+    choosedirectory = askdirectory(
+        initialdir=os.path.expanduser(r"~\\Desktop"), )
     changedestinationentry.delete(0, END)
     changedestinationentry.insert(0, choosedirectory)
     save()
+
+
 def done():
     donelabel.destroy()
+
+
 def saved():
     savedlabel.destroy()
+
+
 def errorsaved():
     errorsavedlabel.destroy()
+
+
 def errormatch():
     errormatchlabel.destroy()
+
+
 def errorplayer():
     errorplayerlabel.destroy()
+
+
 def errorfile():
     errorfilelabel.destroy()
+
+
 def errorupdate():
     errorupdatelabel.destroy()
+
+
 def success():
     successlabel.destroy()
+
+
 def default():
     if not os.path.exists(os.path.expanduser(r"~\\Desktop\\Rivals Replays")):
         os.makedirs(os.path.expanduser(r"~\Desktop\Rivals Replays"))
     changedestinationentry.delete(0, END)
-    changedestinationentry.insert(0, os.path.expanduser(r"~\Desktop\Rivals Replays"))
+    changedestinationentry.insert(
+        0, os.path.expanduser(r"~\Desktop\Rivals Replays"))
     save()
+
+
 def start():
     '''if not numbercheck(matchentry.get()):
         global errormatchlabel
         errormatchlabel = Label(root, text = 'Error: Select how many matches you played', fg = 'red')
         errormatchlabel.place(x=115,y=250)
         root.after(2000, errormatch)'''
-    #else:
+    # else:
     f = open('config', 'r')
     if f.read() == 'DEFAULT':
         f.seek(0)
@@ -264,10 +307,11 @@ def start():
         newfilelist.append([replay, count])
     for i in newfilelist:
         i[1] = (len(newfilelist) - i[1]) + 1'''
-    playerlist = [[],[]]
+    playerlist = [[], []]
     masterlist = []
     for replay in filelist:
-        f = open(os.getenv('LOCALAPPDATA') + "\RivalsofAether\Replays\\" + replay, 'r')#.readlines()
+        f = open(os.getenv('LOCALAPPDATA') +
+                 "\RivalsofAether\Replays\\" + replay, 'r')  # .readlines()
         f.seek(0)
         fileread = f.read()
         f.seek(0)
@@ -289,7 +333,8 @@ def start():
                         spaceflag = 0
                     if spaceflag == 5:
                         player1 = player1[:-5]
-                        remove_punctuation_map = dict((ord(char), None) for char in '\/*?:"<>|')
+                        remove_punctuation_map = dict(
+                            (ord(char), None) for char in '\/*?:"<>|')
                         player1 = player1.translate(remove_punctuation_map)
                         readflag = False
                         player1done = True
@@ -302,13 +347,13 @@ def start():
                         spaceflag = 0
                     if spaceflag == 5:
                         player2 = player2[:-5]
-                        remove_punctuation_map = dict((ord(char), None) for char in '\/*?:"<>|')
+                        remove_punctuation_map = dict(
+                            (ord(char), None) for char in '\/*?:"<>|')
                         player2 = player2.translate(remove_punctuation_map)
                         break
             if fileread[char] == 'H' and fileread[char-1] == '\n':
                 readflag = True
         masterlist.append([replay, player1, player2])
-
 
     '''
     if (len(playerlist[0]) == 1 and len(playerlist[1]) == 1):
@@ -324,25 +369,30 @@ def start():
     directoryplayer2 = player2.replace('.', '')'''
     try:
 
-        os.makedirs(directory + '\\' + newfilelist[0][0][:10] + ' ' + directoryplayer1 + ' v.s. ' + directoryplayer2)
+        os.makedirs(directory + '\\' + newfilelist[0][0][:10] +
+                    ' ' + directoryplayer1 + ' v.s. ' + directoryplayer2)
     except FileExistsError:
-        #wait if this just passes it works? idk
+        # wait if this just passes it works? idk
         pass
         # global errorfilelabel
         # errorfilelabel = Label(root, text = 'Error: Folder already exists', fg = 'red')
         # errorfilelabel.place(x=115,y=250)
         # root.after(2000, errorfile)
     for replay, gamecount in newfilelist:
-        shutil.copy2(os.getenv('LOCALAPPDATA') + "\RivalsofAether\Replays\\" + replay, directory + '\\' + newfilelist[0][0][:10] + ' ' + directoryplayer1 + ' v.s. ' + directoryplayer2 + '\\' + player1 + " v.s. " + player2 + ' Game ' + str(gamecount) + '.roa')
-    shutil.make_archive(directory + '\\' + newfilelist[0][0][:10] + ' ' + directoryplayer1 + ' v.s. ' + directoryplayer2, 'zip', directory + '\\' + newfilelist[0][0][:10] + ' ' + directoryplayer1 + ' v.s. ' + directoryplayer2)
+        shutil.copy2(os.getenv('LOCALAPPDATA') + "\RivalsofAether\Replays\\" + replay, directory + '\\' +
+                     newfilelist[0][0][:10] + ' ' + directoryplayer1 + ' v.s. ' + directoryplayer2 + '\\' + player1 + " v.s. " + player2 + ' Game ' + str(gamecount) + '.roa')
+    shutil.make_archive(directory + '\\' + newfilelist[0][0][:10] + ' ' + directoryplayer1 + ' v.s. ' + directoryplayer2,
+                        'zip', directory + '\\' + newfilelist[0][0][:10] + ' ' + directoryplayer1 + ' v.s. ' + directoryplayer2)
     global successlabel
-    successlabel = Label(root, text = 'Success!', fg = 'green')
-    successlabel.place(x=205,y=250)
+    successlabel = Label(root, text='Success!', fg='green')
+    successlabel.place(x=205, y=250)
     root.after(2000, success)
+
+
 def save():
     if not os.path.exists(changedestinationentry.get()):
         global errorsavedlabel
-        errorsavedlabel = Label(root, text = 'Error: Path Invalid', fg = 'red')
+        errorsavedlabel = Label(root, text='Error: Path Invalid', fg='red')
         errorsavedlabel.place(x=205, y=35)
         root.after(2000, errorsaved)
         return
@@ -351,58 +401,59 @@ def save():
     f.seek(0)
     f.close()
     global savedlabel
-    savedlabel = Label(root, text = 'Saved!', fg = 'green')
+    savedlabel = Label(root, text='Saved!', fg='green')
     savedlabel.place(x=305, y=65)
     root.after(2000, saved)
 
 
 chardict = {
-'01': 'Random',
-'02': 'Zetterburn',
-'03': 'Orcane',
-'04': 'Wrastor',
-'05': 'Kragg',
-'06': 'Forsburn',
-'07': 'Maypul',
-'08': 'Absa',
-'09': 'Etalus',
-'10': 'Ori and Sein',
-'11': 'Ranno',
-'12': 'Clairen',
-'13': 'Sylvanos',
-'14': 'Elliana'
+    '01': 'Random',
+    '02': 'Zetterburn',
+    '03': 'Orcane',
+    '04': 'Wrastor',
+    '05': 'Kragg',
+    '06': 'Forsburn',
+    '07': 'Maypul',
+    '08': 'Absa',
+    '09': 'Etalus',
+    '10': 'Ori and Sein',
+    '11': 'Ranno',
+    '12': 'Clairen',
+    '13': 'Sylvanos',
+    '14': 'Elliana'
 }
 
 stagedict = {
-'00': 'Random',
-'01': 'Treetop Lodge',
-'02': 'Fire Capitol',
-'03': 'Air Armada',
-'04': 'Rock Wall',
-'05': 'Merchant Port',
-'07': 'Blazing Hideout',
-'08': 'Tower of Heaven',
-'09': 'Tempest Peak',
-'10': 'Frozen Fortress',
-'11': 'Aethereal Gates',
-'12': 'The Endless Abyss',
-'14': 'The Ceo Ring',
-'15': 'Spirit Tree',
-'17': 'Neo Fire Capitol',
-'18': 'Swampy Estuary'
+    '00': 'Random',
+    '01': 'Treetop Lodge',
+    '02': 'Fire Capitol',
+    '03': 'Air Armada',
+    '04': 'Rock Wall',
+    '05': 'Merchant Port',
+    '07': 'Blazing Hideout',
+    '08': 'Tower of Heaven',
+    '09': 'Tempest Peak',
+    '10': 'Frozen Fortress',
+    '11': 'Aethereal Gates',
+    '12': 'The Endless Abyss',
+    '14': 'The Ceo Ring',
+    '15': 'Spirit Tree',
+    '17': 'Neo Fire Capitol',
+    '18': 'Swampy Estuary'
 }
 root = Tk()
-Button(text="Default", command = default).place(x=345,y=35)
-Button(text="Save", command = save).place(x=305,y=35)
-Button(text="Browse", command = browse).place(x=400,y=35)
+Button(text="Default", command=default).place(x=345, y=35)
+Button(text="Save", command=save).place(x=305, y=35)
+Button(text="Browse", command=browse).place(x=400, y=35)
 changedestination = Label(root, text='Change destination folder: ')
-changedestination.place(x=10,y=10)
-changedestinationentry = Entry(root, width = 45)
+changedestination.place(x=10, y=10)
+changedestinationentry = Entry(root, width=45)
 changedestinationentry.place(x=160, y=10)
 #Label(root, text = 'Number of matches:').place(x=175, y=75)
-Label(text = 'To update: \n run "update.exe"', height = 4, width = 12).place(x=18, y=33)
-Button(text='Refresh', command = refresh , height = 3, width = 10).place(x=110, y=35)
-Button(text='Save All', command = saveall , height = 3, width = 10).place(x=200, y=35)
+Label(text='To update: \n run "update.exe"',
+      height=4, width=12).place(x=18, y=33)
+Button(text='Refresh', command=refresh, height=3, width=10).place(x=110, y=35)
+Button(text='Save All', command=saveall, height=3, width=10).place(x=200, y=35)
 
 '''
 MODES = [
@@ -426,21 +477,15 @@ startbutton = Button(text='START', command=start, height = 2, width = 14, font =
 startbutton.place(x=100, y=150)'''
 
 
-
-
-
-
-
-
-
-Label(root, text='By CheesyPotato (PM at CheesyPotato#5378 for bugs/suggestions)').place(x=85,y=280)
+Label(root, text='By CheesyPotato (PM at CheesyPotato#5378 for bugs/suggestions)').place(x=85, y=280)
 
 f = open('config', 'r')
 if f.read() == 'DEFAULT':
     f.seek(0)
     if not os.path.exists(os.path.expanduser(r"~\Desktop\Rivals Replays")):
         os.makedirs(os.path.expanduser(r"~\Desktop\Rivals Replays"))
-    changedestinationentry.insert(0, os.path.expanduser("~\Desktop\Rivals Replays"))
+    changedestinationentry.insert(
+        0, os.path.expanduser("~\Desktop\Rivals Replays"))
 else:
     f.seek(0)
     changedestinationentry.insert(0, f.read())
