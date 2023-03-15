@@ -1,4 +1,5 @@
-from tkinter import *
+# from tkinter import *
+from tkinter import Frame, Button, Canvas, Scrollbar, HORIZONTAL, TOP, LEFT, ALL, N, NW, X, BOTH, END, Label, Entry, Tk
 import os
 from tkinter.font import Font
 import shutil
@@ -458,10 +459,10 @@ changedestination.place(x=10, y=10)
 changedestinationentry = Entry(root, width=45)
 changedestinationentry.place(x=160, y=10)
 #Label(root, text = 'Number of matches:').place(x=175, y=75)
-Label(text='To update: \n run "update.exe"',
-      height=4, width=12).place(x=18, y=33)
-Button(text='Refresh', command=refresh, height=3, width=10).place(x=110, y=35)
-Button(text='Save All', command=saveall, height=3, width=10).place(x=200, y=35)
+# Label(text='To update: \n run "update.exe"',
+#   height=4, width=12).place(x=18, y=33)
+Button(text='Refresh', command=refresh, height=3, width=10).place(x=10, y=35)
+Button(text='Save All', command=saveall, height=3, width=10).place(x=100, y=35)
 
 '''
 MODES = [

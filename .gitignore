@@ -49,3 +49,5 @@ Temporary Items
 build
 output
 *.dll
+backup
+__pycache__
